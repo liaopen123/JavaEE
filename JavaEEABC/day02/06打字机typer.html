@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<!--
+    	作者：467969@qq.com
+    	时间：2017-01-28
+    	描述：注意①：getElementById放在init当中   其他地方出现null
+    		 注意②：setInterval 方法是不停延时调用这个方法
+    		 注意③：bodyObj.innerHTML 用来获取内容
+    -->
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script>
+		var content = "这是我要输入的文字";
+		var i = 0;
+		var bodyObj;
+			function init(){
+				bodyObj = document.getElementById("divid");
+				setInterval(show,200);
+			}
+			function show(){
+					i++;
+					if(i<=content.length){
+						//初始化内容的文字 清除之前的文字
+					var s_ = content.substring(0,i);
+					bodyObj.innerHTML = s_;
+					}else{
+						i=0;
+					}
+					
+			}
+		</script>
+	</head>
+	<body  onload="init()" id="body">
+		<div id="divid"></div>
+	</body>
+</html>

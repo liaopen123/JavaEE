@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script>
+		var ad;
+			onload = function(){
+			 ad = document.getElementById("ad");
+				setTimeout(showAd,4000);
+			}
+			function showAd(){
+				ad.style.display="block";
+				 setTimeout(hideAd,3000);
+			}
+			function hideAd(){
+				ad.style.display="none";
+			}
+		</script>
+	</head>
+	<body>
+		
+		<div id="ad" style="width: 100%; display: none;">
+			<img src="img/ad_.jpg" width="100%">
+		</div>
+	</body>
+</html>

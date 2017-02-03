@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<a href="http://www.baidu.com/"  onclick="one()"> 百度一下</a>
+		<br />
+			<a href="http://www.baidu.com/"  onclick="two()"> 百度一下</a>
+	</body>
+	
+	<script>
+		function one(){
+			alert("显示提示，跳转百度");
+		}
+		
+		function two(event){
+			alert("要拦截事件了");
+			 var event = event||window.event;
+			 event.preventDefault();
+		}
+	</script>
+</html>

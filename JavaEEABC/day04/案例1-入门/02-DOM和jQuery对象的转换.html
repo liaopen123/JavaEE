@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+	<script src="../js/jquery-1.11.0.min.js"></script>
+<body>
+	<input type="text" id="username" value="jack"/>
+</body>
+
+<script>
+<!--dom对象转jQuery对象-->
+//	var obj =  document.getElementById("username");
+//	
+//	var $obj1 = $(obj);
+//	alert($obj1.val());
+<!--jQuery对象转dom对象-->
+var $username = $("#username");
+//var obj = $username[0];
+var obj = $username.get(0);
+alert(obj.value+"haha1");
+</script>
+</html>

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ResourceBundle;
 
 import org.junit.Test;
 
@@ -17,9 +18,14 @@ public class Hello{
 	@Test
 	public void h2() throws Exception{
 		//注册驱动
-		Class.forName("com.mysql.jdbc.Driver");
+		ResourceBundle rsb = ResourceBundle.getBundle("jdbc");
+		String driver = rsb.getString("driverClass");
+		String url = rsb.getString("url");
+		String user = rsb.getString("user");
+		String pwd = rsb.getString("pwd");
+		Class.forName(driver);
 		//获取连接
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/day07","root","123");
+		Connection conn = DriverManager.getConnection(url,user,pwd);
 		//编写sql
 		String sql = "select * from category";
 		//创建语句执行者

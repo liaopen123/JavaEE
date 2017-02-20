@@ -19,7 +19,9 @@ public class JdbcUtils {
 	
 	
 	public static void colseStream(ResultSet rs,PreparedStatement st,Connection conn) throws Exception{
+		if(rs!=null){
 		rs.close();
+		}
 		st.close();
 		conn.close();
 	}

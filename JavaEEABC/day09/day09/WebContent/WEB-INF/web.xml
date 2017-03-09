@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+   <!-- 1.注册servlet
+  		servlet-name: 给servlet起个名字
+  		servlet-class:存servlet全限定名
+   -->
+   
+   <servlet>
+   <servlet-name>helloServlet</servlet-name>
+   <servlet-class>com.itheima.a.servlet.HelloServlet</servlet-class>
+   </servlet>
+   
+   <!-- b.绑定路径  使用serlvet-mapping标签
+   servlet-name：使用上面起好的名字 建议复制
+   urlpattern： 访问路径 要求：必须以“/”开头 唯一
+    -->
+    <servlet-mapping>
+    <servlet-name>helloServlet</servlet-name>
+    <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    <servlet-name>RequestServlet</servlet-name>
+    <servlet-class>com.itheima.b.requsetservlet.RequestServlet</servlet-class>
+    </servlet>
+   
+   
+   <servlet-mapping>
+    <servlet-name>RequestServlet</servlet-name>
+    <url-pattern>/Request</url-pattern>
+    </servlet-mapping>
+</web-app>

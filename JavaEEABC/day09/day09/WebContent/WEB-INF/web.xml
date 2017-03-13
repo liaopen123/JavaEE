@@ -24,9 +24,18 @@
     <servlet-class>com.itheima.b.requsetservlet.RequestServlet</servlet-class>
     </servlet>
    
+   <servlet>
+   <servlet-name>LoginServlet</servlet-name>
+   <servlet-class>com.itheima.c.loginservlet.LoginServlet</servlet-class>
+   </servlet>
    
    <servlet-mapping>
     <servlet-name>RequestServlet</servlet-name>
     <url-pattern>/Request</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
     </servlet-mapping>
 </web-app>

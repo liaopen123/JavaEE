@@ -102,7 +102,7 @@ Set-Cookie
 
 定义：动态的web开发技术，本质是一个类，运行在服务器端的一个java小程序。用于处理业务逻辑，生成动态web内容。
 
-编写一个servlert的步骤：
+###编写一个servlert的步骤：
 
 		1.编写一个类
 			a.继承HttpServlet
@@ -115,13 +115,130 @@ Set-Cookie
 		
 如何接受提交的参数:
 
-	```java
-	String value = request.getParameter("key");
-
-
+```
+String value = request.getParameter("key");
 回写内容：
+response
+response.getWriter().print("内容");
+//处理乱码  在最前面 写上：
+resp.setContentType("text/html;charset=utf-8");
+```
 
-	response
-	response.getWriter().print("内容");
-	//处理乱码  在最前面 写上：
-	resp.setContentType("text/html;charset=utf-8");
+
+### Servlet常用方法
+
+```java
+    void init(ServletConfig config); 进行初始化操作
+    void service(ServletRequest request,ServletResponse response); 服务 处理业务逻辑
+    void destroy():销毁
+    ServletConfig getServletConfig();获取配置信息的
+```
+
+
+
+    
+#### Servlet的生命周期 
+serlvet是单实例多线程
+默认第一次访问的时候，服务器创建Servlet，并且调用init实现初始化操作，并调用一次service方法，每当请求来的时候，服务器创建一个线程，调用service方法来执行自己的业务。
+
+1.init():服务器第一次访问的时候执行   只执行一次
+2.service(): 请求一次执行一次。
+3.destroy():只执行一次 当servlet被移除或者服务器正常关闭的时候。
+
+
+### url-pattern的配置
+
+
+    1:完全匹配  必须以"/"开始 例如: /hello /a/b/c
+    2:目录匹配  必须"/"开始  以"*"结束   例如: /a/*  /*
+    3:后缀名匹配 以"*"开始 以字符结尾 例如: *.jsp  *.do  *.action
+
+优先级:
+		完全匹配>目录匹配>后缀名匹配
+		
+	
+### load-on-startup
+
+是在servlet中的一个标签，作用：用来修改servlet的初始化时机。
+取值： 正整数  **值越大优先级越低**
+
+###协议路径的写法
+
+相对路径:
+		当前路径    ./ 或者 什么都不写
+		上一级路径 ../
+	绝对路径:(我们使用)
+		带主机和协议的绝对路径(访问站外资源)
+			http://www.itheima.com/xxxx
+			http://localhost:80/day09/hello
+		不带主机和协议的绝对路径
+			/day09/hello(经常使用)
+
+### 常见的响应头
+案例：登录失败,提示"用户名密码不匹配",3秒以后跳转到登录页面
+
+分析：定时刷新
+常见的响应头-refresh
+响应头格式:
+		refresh:秒数;url=跳转的路径
+设置响应头:
+		response.setHeader(String key,String value);设置字符串形式的响应头
+		response.addHeader(String key,String value);追加响应头, 若之前设置设置过这个头,则追加;若没有设置过,则设置
+	设置定时刷新:
+		response.setHeader("refresh","3;url=/day0901/login.htm");
+
+### 统计登陆成功的次数
+技术分析:**ServletContext**
+常用方法：
+   
+   ```java 
+    1.setAttribute(String key,Object value);//设置值
+	2.Object getAttribute(String key);//获取值
+	3.removeAttribute(String key)://移除值
+   ```
+
+获取全局管理者:getServletContext()。
+
+###ServletContext
+作用：
+
+    1.获取全局的初始化参数
+    2.共享资源(xxxAttribute)
+    3.获取文件资源
+    4.其他操作
+    
+获取servletcontext：
+
+    1.getServletConfig().getServletContext()了解
+    2.getServletContext();    
+
+常用方法:
+
+		1.了解
+			String  getInitParameter(String key):通过名称获取指定的参数值
+			Enumeration getInitParameterNames() :获取所有的参数名称	
+			 在根标签下有一个 context-param子标签 用来存放初始化参数
+				<context-param>
+					<param-name>encoding</param-name>
+					<param-value>utf-8</param-value>
+				</context-param>
+		2.xxxAttribute
+		3.String getRealPath(String path):获取文件部署到tomcat上的真实路径(带tomcat路径)
+				getRealPath("/"):D:\javaTools\apache-tomcat-7.0.52\webapps\day09\
+			InputStream getResourceAsStream(String path):以流的形式返回一个文件
+		4.获取文件的mime类型  大类型/小类型
+			String getMimeType(String 文件名称)
+
+
+###域对象(即ServletContext)
+
+启动与销毁实际
+>启动：当项目启动的时候，服务器会为**每一个项目创建一个Servletcontext**
+>销毁：项目被移除或者服务器关闭的时候。
+
+
+###获取文件路径
+**获取classes目录下文件的路径**
+xxx.class.getClassLoader().getResource("2.txt").getPath()
+
+

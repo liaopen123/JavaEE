@@ -122,4 +122,87 @@
 				getRequestURL():获取的带协议的完整路径   http://localhost/day10/regist
 				String getQueryString():get请求的所有参数   username=tom&password=123
 				String getProtocol():获取协议和版本
+				
+				
+操作请求头：
+    
+    
+```java
+掌握
+    String value =     getHeader(String key);
+了解    
+    Enumeration getHeaders(String name) :通过key获取指定的value(多个)
+    				Enumeration getHeaderNames() :获取所有的请求头的名称
+    				int getIntHeader(String key):获取整型的请求头
+    				long getDateHeader(String key):获取时间的请求头
+```
+
+重要的头信息：
+
+    user-agent:浏览器类型
+    referer：来自哪  防盗链
+    
+    
+操作请求参数：
+
+    
+    例如参数为   username=tom&password=123&hobby=drink&hobby&sleep    
+
+常用方法★：
+
+    String getParameter(String key):获取一个值
+	String[] getParameterValues(String key):通过一个key获取多个值
+	Map<String,String[]> getParameterMap():获取所有的参数名称和值
+	
+	
+请求参数中文乱码的处理：
+
+    乱码原因：
+        GET请求参数拼在链接中，浏览器是用UTF-8进行编码，而Tomcat是用采用ISO-8859-1,因而产生乱码
+        Post请求也一样
+    解决办法：
+         GET
+        new String(参数.getBytes("iso-8859-1"),"utf-8");
+        POST
+        针对于post请求来说:只需要将请求流的编码设置成utf-8即可
+			request.setCharacterEncoding("utf-8");     
+
+下载文件的文件名乱码情况：
+
+    中文名称的文件名下载的时候名称会出现问题
+	常见的浏览器需要提供文件名称的utf-8编码
+	对于火狐来说需要提供文件名称的base64编码
+		方案1:使用工具类
+		方案2:网上的方式(8成好使)
+			new String(filename.getByte("gbk"),"iso8859-1");
+
+Request的域对象
+
+    创建：每次请求来的时候
+    销毁：响应生成的时候
+    作用：存放一次请求里的数据 
+    
+    应用：
+        请求转发(请求Aservlet，a搞定不了，转发给Bservlet)
+    代码：
+        request.getRequestDispatcher("内部路径：/dis2").forward(request,response);
+        
+ 
+ 
+ 
+ 请求转发和重定向的区别(面试题)
+ 
+    重定向发送两次请求,请求转发一次请求
+	
+	重定向地址栏发生该表,请求转发不变
+	
+	重定向是从浏览器发送,请求转发是服务器内部
+	
+	重定向不存在request域对象,请求转发可以使用request域对象
+	
+	重定向是response的方法,请求转发是request的方法
+	
+	重定向可以请求站外资源,请求转发不可以		
+	
+               
 

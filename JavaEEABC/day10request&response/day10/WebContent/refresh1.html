@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="3;url=/day10/refresh2.html">
+<title>Insert title here</title>
+</head>
+<body>
+<span id="sid">3</span>秒后跳转到refresh2
+</body>
+<script type="text/javascript">
+onload=function(){
+	setInterval(changes, 1000);
+}
+	i=3;
+function changes(){
+ var obj = document.getElementById("sid");
+ obj.innerHTML=--i;
+}
+
+
+</script>
+</html>
